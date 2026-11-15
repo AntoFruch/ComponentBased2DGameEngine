@@ -37,7 +37,7 @@ public:
     [[nodiscard]] std::vector<T*> getComponents() const;
 
     [[nodiscard]] std::string_view getLabel() const;
-    void setLabel(const std::string&);
+    void setLabel(std::string_view);
 
     void setActive(bool);
     [[nodiscard]]bool isActive() const;

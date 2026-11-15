@@ -40,7 +40,7 @@ public:
 
     void setCutRectPos(unsigned int x, unsigned int y);
 
-    const sf::Vector2u getSpriteSize() const;
+    const sf::Vector2u& getSpriteSize() const;
     int getLayer() const;
     float getSortY() const;
 
