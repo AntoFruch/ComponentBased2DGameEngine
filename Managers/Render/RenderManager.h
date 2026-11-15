@@ -7,32 +7,31 @@
 #include <vector>
 
 #include "SFML/Graphics.hpp"
+#include "TGUI/Backend/SFML-Graphics.hpp"
 
 class Camera;
 class Renderer;
 
 
 class RenderManager {
-    static std::vector<Renderer*> mRenderers;
-    static Camera* mainCamera;
-    static sf::RenderWindow* window;
+    std::vector<Renderer*> mRenderers;
+    Camera* mainCamera{nullptr};
+    sf::RenderWindow* window;
+    tgui::Gui* gui;
 
 public:
-    static const float referenceHeight;
+    const float referenceHeight{480.f};
 
-    static void init(sf::RenderWindow* win);
-    static void closeWindow();
+    RenderManager(sf::RenderWindow* win, tgui::Gui* gui, float referenceHeight);
 
-    static void registerRenderer(Renderer*);
-    static void unregisterRenderer(const Renderer*);
-    static void renderAll();
+    void registerRenderer(Renderer*);
+    void unregisterRenderer(const Renderer*);
+    void renderAll();
 
-    static void setMainCamera(Camera*);
-    static void unsetMainCamera(Camera*);
+    void setMainCamera(Camera*);
+    void unsetMainCamera(const Camera*);
 
-    static const sf::RenderWindow* getWindow();
-
-    static void handleResize(const sf::Vector2u& size);
+    void handleResize(const sf::Vector2u& size) const;
 };
 
 

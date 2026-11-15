@@ -7,34 +7,35 @@
 
 #include "pugixml.hpp"
 #include "Scene.h"
+#include "SceneBuilder.h"
 #include "Components/Renderer.h"
 
 class SceneManager {
-    static Scene* scene;
 
-    static bool loadingReq;
-    static std::string reqPath;
+    std::unique_ptr<Scene> scene;
+    std::unique_ptr<SceneBuilder> builder;
 
-public:
-    static void init(Scene* ptr);
-    static void Update(const sf::Time& elapsedTime);
+    std::string requestedScene = "";
 
     /**
-     * @brief Enregistre une demande de changement de scène, le changement sera effectif à la fin de la boucle d'update
+     * New instantiated GameObjects requested during Update.
+     */
+    std::vector<std::unique_ptr<GameObject>> requestedGOs;
+
+public:
+    explicit SceneManager(std::unique_ptr<SceneBuilder>);
+    void Update(const sf::Time& elapsedTime);
+
+    /**
+     * @brief Register a request to load a new scene. New scene will be loaded at the end of the current Update() call.
      * @param path
      */
-    static void requestLoading(std::string_view path);
+    void requestLoading(std::string_view path);
 
-    static GameObject* instantiate(std::string_view prefab);
-
-    static void freeze();
-    static void unfreeze();
-
-    static tgui::Gui* getGui();
+    GameObject* instantiate(std::string_view prefab);
 
 private:
-    friend class Scene;
-    static void applyRequest();
+    void applyRequest();
 };
 
 

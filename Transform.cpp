@@ -17,8 +17,8 @@ sf::Vector2f Transform::rotateVector(sf::Vector2f v, sf::Angle angle)
     };
 }
 
-Transform::Transform(const sf::Vector2f& position, const sf::Angle& rotation, const sf::Vector2f& scale, Transform* parent)
-    : position(position), rotation(rotation), scale(scale), parent(parent)
+Transform::Transform(const sf::Vector2f& position, const sf::Angle& rotation, const sf::Vector2f& scale, Transform* parent, GameObject* gameObject)
+    : position(position), rotation(rotation), scale(scale), parent(parent), gameObject(gameObject)
 {}
 
 const std::vector<Transform*>& Transform::getChildren() const

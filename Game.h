@@ -12,7 +12,8 @@
 
 class Game {
 public:
-    Game(const std::string& scenePath);
+    explicit Game(const std::string& scenePath);
+    ~Game();
     Game(const Game &) = delete;
     Game &operator=(const Game &) = delete;
 
@@ -29,9 +30,8 @@ private:
 
     static const sf::Time TimePerFrame;
 
-    std::unique_ptr<Scene> scene;
-
     sf::RenderWindow mWindow{sf::VideoMode({W_WIDTH, W_HEIGHT}), "SFML Application"};
+    tgui::Gui gui{mWindow};
 };
 
 

@@ -4,7 +4,7 @@
 
 #include "InputManager.h"
 
-#include "pugixml.hpp"
+#include "GameContext.h"
 #include "Managers/Scene/SceneManager.h"
 
 const std::unordered_map<std::string, sf::Keyboard::Key> stringToKey = {
@@ -111,8 +111,12 @@ const std::unordered_map<std::string, sf::Keyboard::Key> stringToKey = {
     {"F15", sf::Keyboard::Key::F15},
     {"Pause", sf::Keyboard::Key::Pause},
 };
-std::unordered_map<std::string, std::unique_ptr<InputAction>> InputManager::actions{};
-std::set<sf::Keyboard::Key> InputManager::pressed_keys{};
+
+InputManager::InputManager(std::string_view configFilePath)
+    : input_config_file_path{configFilePath}
+{
+    loadActions();
+}
 
 std::vector<DirectionalBindings> create_directional_bindings(pugi::xml_node node)
 {
@@ -168,12 +172,6 @@ void InputManager::loadActions()
     }
 }
 
-void InputManager::init()
-{
-
-    loadActions();
-}
-
 InputAction* InputManager::findAction(const std::string& action_name)
 {
     if (!actions.contains(action_name))
@@ -185,7 +183,7 @@ InputAction* InputManager::findAction(const std::string& action_name)
 
 void InputManager::processEvents(std::optional<sf::Event> event)
 {
-    SceneManager::getGui()->handleEvent(*event);
+    GameContext::instance().getGui()->handleEvent(*event);
     // On regarde les touches appuyées et on les met/enleve de pressed_key
     if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
         pressed_keys.insert(keyPressed->code);

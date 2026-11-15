@@ -13,21 +13,10 @@
 
 #include <tuple>
 
-std::vector<Renderer*> RenderManager::mRenderers{};
-Camera* RenderManager::mainCamera{nullptr};
-sf::RenderWindow* RenderManager::window{nullptr};
-
-const float RenderManager::referenceHeight = 480;
-
-void RenderManager::init(sf::RenderWindow* win)
+RenderManager::RenderManager(sf::RenderWindow* win, tgui::Gui* gui, float referenceHeight)
+    : window(win), gui(gui), referenceHeight(referenceHeight)
 {
-    window = win;
     tgui::Texture::setDefaultSmooth(false);
-}
-
-void RenderManager::closeWindow()
-{
-    if (window) window->close();
 }
 
 void RenderManager::registerRenderer(Renderer* renderer)
@@ -51,13 +40,13 @@ void RenderManager::renderAll()
 
     if (mainCamera){
         mainCamera->applyView(*window);
-    }
-    for (auto& renderer : mRenderers)
-    {
-        renderer->render(*window);
+        for (auto& renderer : mRenderers)
+        {
+            renderer->render(*window);
+        }
     }
 
-    SceneManager::getGui()->draw();
+    gui->draw();
 }
 
 void RenderManager::setMainCamera(Camera* cam)
@@ -66,17 +55,13 @@ void RenderManager::setMainCamera(Camera* cam)
     handleResize(window->getSize());
 }
 
-void RenderManager::unsetMainCamera(Camera* cam)
+void RenderManager::unsetMainCamera(const Camera* cam)
 {
     if (mainCamera == cam) mainCamera = nullptr;
 }
 
-const sf::RenderWindow* RenderManager::getWindow()
+void RenderManager::handleResize(const sf::Vector2u& size) const
 {
-    return window;
-}
-
-void RenderManager::handleResize(const sf::Vector2u& size) {
     if (mainCamera) {
         mainCamera->updateSize(size);
     }

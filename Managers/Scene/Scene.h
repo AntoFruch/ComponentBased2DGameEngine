@@ -11,39 +11,17 @@
 #include "TGUI/Backend/SFML-Graphics.hpp"
 
 class Scene {
-    tgui::Gui mGui;
     std::vector<std::unique_ptr<GameObject>> mObjects;
 
-    // FIXME: ugly way to deal with documents going out of scope when loading a prefab.
-    std::vector<std::unique_ptr<pugi::xml_document>> mPrefabDocs;
-
-    /**
-     * New instantiated GameObjects requested during Update.
-     */
-    std::vector<std::unique_ptr<GameObject>> requestedGOs;
-
-    bool frozen{false};
-
 public:
-    Scene(sf::RenderWindow& window);
+    explicit Scene(std::vector<std::unique_ptr<GameObject>>&);
     void Start();
     void Update(const sf::Time& elapsedTime);
 
-    void load(std::string_view scene);
-    void unload();
-
-    void applyInstantiate();
-    GameObject* requestInstantiate(std::string_view prefabPath);
-
-    void freeze();
-    void unfreeze();
-
-    [[nodiscard]] tgui::Gui* getGui();
+    void instantiate(std::vector<std::unique_ptr<GameObject>>& list);
 
     std::string dump() const;
 
-private:
-    pugi::xml_node open_prefab(const pugi::xml_node& obj);
 };
 
 

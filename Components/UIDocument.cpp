@@ -4,6 +4,8 @@
 
 #include "UIDocument.h"
 
+#include "GameContext.h"
+
 UIDocument::~UIDocument()
 {
     for (const auto& el: elements)
@@ -15,7 +17,7 @@ UIDocument::~UIDocument()
 void UIDocument::Start()
 {
     Component::Start();
-    gui = SceneManager::getGui();
+    gui = GameContext::instance().getGui();
 }
 void UIDocument::Update(const sf::Time& elapsedTime)
 {

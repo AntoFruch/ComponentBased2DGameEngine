@@ -40,8 +40,11 @@ add_library(lib_engine
         Components/UIDocument.cpp
         Components/UIDocument.h
         Components/Component.cpp
-        Managers/Scene/GameObjectFactory.cpp
-        Managers/Scene/GameObjectFactory.h
+        Managers/Scene/SceneBuilder.h
+        Managers/Scene/XMLSceneBuilder.cpp
+        Managers/Scene/XMLSceneBuilder.h
+        GameContext.cpp
+        GameContext.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

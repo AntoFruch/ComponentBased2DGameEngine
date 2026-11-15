@@ -8,6 +8,7 @@
 
 #include "GameObject.h"
 #include "Collider.h"
+#include "GameContext.h"
 #include "pugixml.hpp"
 #include "Managers/Render/RenderManager.h"
 
@@ -28,11 +29,14 @@ Renderer::Renderer(
 
 Renderer::~Renderer()
 {
-    RenderManager::unregisterRenderer(this);
+    if (auto* rm = GameContext::instance().render_manager())
+    {
+        rm->unregisterRenderer(this);
+    }
 }
 void Renderer::OnEnable()
 {
-    RenderManager::registerRenderer(this);
+    GameContext::instance().render_manager()->registerRenderer(this);
 }
 
 void Renderer::Start()
@@ -68,7 +72,7 @@ void Renderer::setCutRectPos(unsigned int x, unsigned int y)
     mShape.setTextureRect(cutRect);
 }
 
-const sf::Vector2u Renderer::getSpriteSize() const
+const sf::Vector2u& Renderer::getSpriteSize() const
 {
     return spriteSize;
 }

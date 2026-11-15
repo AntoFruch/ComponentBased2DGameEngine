@@ -4,7 +4,7 @@
 
 #include "GameObject.h"
 GameObject::GameObject(std::string_view label, const sf::Vector2f& position, const sf::Angle& rotation, const sf::Vector2f& scale, bool active)
-    : label(label), active(active), transform(position, rotation, scale, nullptr)
+    : label(label), active(active), transform(position, rotation, scale, nullptr, this)
 {
 
 }
@@ -44,14 +44,14 @@ std::string_view GameObject::getLabel() const
 {
     return label;
 }
-void GameObject::setLabel(const std::string& label)
+void GameObject::setLabel(std::string_view plabel)
 {
-    this->label= label;
+    this->label = plabel;
 }
 
-void GameObject::setActive(bool active)
+void GameObject::setActive(bool pactive)
 {
-    this->active = active;
+    this->active = pactive;
 }
 
 bool GameObject::isActive() const

@@ -11,24 +11,23 @@
 #include "InputAction.h"
 
 class InputManager {
+    const std::filesystem::path input_config_file_path;
 
-
-    inline static const std::filesystem::path input_config_file_path{"resources/config/input-config.xml"};
-
-    static std::unordered_map<std::string, std::unique_ptr<InputAction>> actions;
+    std::unordered_map<std::string, std::unique_ptr<InputAction>> actions{};
 
     /**
      * Currently pressed keys
      */
-    static std::set<sf::Keyboard::Key> pressed_keys;
+    std::set<sf::Keyboard::Key> pressed_keys{};
 
-    static void loadActions();
+    void loadActions();
 public:
-    static void init();
-    static InputAction* findAction(const std::string& action_name);
 
-    static void beginFrame();
-    static void processEvents(std::optional<sf::Event> event);
+    explicit InputManager(std::string_view configFilePath);
+    InputAction* findAction(const std::string& action_name);
+
+    void beginFrame();
+    void processEvents(std::optional<sf::Event> event);
 };
 
 

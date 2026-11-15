@@ -6,58 +6,44 @@
 
 #include <iostream>
 
-
-Scene* SceneManager::scene = nullptr;
-bool SceneManager::loadingReq = false;
-std::string SceneManager::reqPath = "";
-
-void SceneManager::init(Scene* ptr)
+SceneManager::SceneManager(std::unique_ptr<SceneBuilder> builder)
+    : builder(std::move(builder))
 {
-    if (scene==nullptr)
-    {
-        scene = ptr;
-    }
 }
 
 void SceneManager::Update(const sf::Time& elapsedTime)
 {
-    scene->Update(elapsedTime);
+    if (scene) scene->Update(elapsedTime);
+    if (!requestedScene.empty()) applyRequest();
+    if (!requestedGOs.empty()) scene->instantiate(requestedGOs);
 }
 
 void SceneManager::requestLoading(std::string_view path)
 {
-    if (loadingReq) return;
-    loadingReq = true;
-    reqPath = path;
+    if (!requestedScene.empty()) return;
+    requestedScene = path;
 }
 
 void SceneManager::applyRequest()
 {
-    scene->unload();
-    scene->load(reqPath);
+    scene = std::move(builder->buildScene(requestedScene));
     std::string dump{scene->dump()};
     std::cout << dump << std::endl;
     scene->Start();
-    loadingReq=false;
-    reqPath = "";
+    requestedScene = "";
 }
 
 GameObject* SceneManager::instantiate(std::string_view prefab)
 {
-    return scene->requestInstantiate(prefab);
-}
+    if (std::filesystem::path path{prefab}; path.empty())
+    {
+        throw IllegalOperationException("Prefab path must be non-empty");
+    }
 
-void SceneManager::freeze()
-{
-    scene->freeze();
-}
+    for (auto& go : builder->buildPrefab(prefab))
+    {
+        requestedGOs.push_back(std::move(go));
+    }
 
-void SceneManager::unfreeze()
-{
-    scene->unfreeze();
-}
-
-tgui::Gui* SceneManager::getGui()
-{
-    return scene->getGui();
+    return requestedGOs.front().get();
 }
