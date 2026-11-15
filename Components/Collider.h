@@ -4,7 +4,7 @@
 
 #ifndef COMPONENT_BASED_ARCH_COLLIDER_H
 #define COMPONENT_BASED_ARCH_COLLIDER_H
-#include "Component.h"
+#include "ComponentBase.h"
 #include "Managers/Scene/ComponentFactory.h"
 #include "SFML/Graphics.hpp"
 #include <array>
@@ -13,7 +13,7 @@
 class Collider;
 using TriggerCallback =  std::function<void(const std::vector<Collider*>&, Collider*)>;
 
-class Collider : public Component {
+class Collider : public ComponentBase<Collider> {
     sf::RectangleShape hitbox;
     sf::Vector2f localPos;
 

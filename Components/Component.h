@@ -35,6 +35,9 @@ public:
      * @param go
      */
     void setParent(GameObject* go);
+
+    // PROTOTYPE
+    virtual std::unique_ptr<Component> clone() const = 0;
 };
 
 

@@ -5,10 +5,10 @@
 #ifndef COMPONENT_BASED_ARCH_ANIMATOR_H
 #define COMPONENT_BASED_ARCH_ANIMATOR_H
 #include "Managers/Animation/AnimatorGraph.h"
-#include "Component.h"
 #include "Managers/Scene/ComponentFactory.h"
 #include "Renderer.h"
 #include <functional>
+#include "ComponentBase.h"
 
 using EventCallback = std::function<void()>;
 
@@ -18,7 +18,7 @@ struct AnimationEvent {
     const EventCallback callback;
 };
 
-class Animator : public Component {
+class Animator : public ComponentBase<Animator>{
     Renderer* renderer;
     const AnimatorGraph* graph;
 

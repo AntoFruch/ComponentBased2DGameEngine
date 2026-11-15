@@ -6,12 +6,12 @@
 #define COMPONENT_BASED_ARCH_RENDERER_H
 #include <memory>
 
-#include "Component.h"
+#include "ComponentBase.h"
 #include "Managers/Scene/ComponentFactory.h"
 #include "SFML/Graphics.hpp"
 
 
-class Renderer : public Component
+class Renderer : public ComponentBase<Renderer>
 {
     sf::RectangleShape mShape;
     sf::Texture texture;

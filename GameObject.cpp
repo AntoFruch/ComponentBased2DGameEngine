@@ -69,3 +69,35 @@ void GameObject::destroySelf()
     waitingDestruction = true;
 }
 
+std::vector<std::unique_ptr<GameObject>> GameObject::clone() const
+{
+    std::vector<std::unique_ptr<GameObject>> clones;
+
+    auto clone = std::make_unique<GameObject>(
+             this->label,
+             this->transform.getLocalPosition(),
+             this->transform.getLocalRotation(),
+             this->transform.getLocalScale(),
+             this->active
+         );
+
+    for (const auto& component : this->components)
+    {
+        clone->addComponent(component->clone());
+    }
+
+    auto clone_ptr = clone.get();
+    clones.push_back(std::move(clone));
+
+    for (const auto& child : this->transform.getChildren())
+    {
+        auto childClones = child->gameObject->clone();
+        for (auto& childClone : childClones)
+        {
+            clone_ptr->transform.addChild(&childClone->transform);
+            clones.push_back(std::move(childClone));
+        }
+    }
+
+    return clones;
+}

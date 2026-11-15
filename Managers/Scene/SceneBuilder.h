@@ -8,8 +8,11 @@
 
 #include "Scene.h"
 
-
 class SceneBuilder {
+protected:
+    using PrefabGOList = std::vector<std::unique_ptr<GameObject>>;
+    std::map<std::string, PrefabGOList>  prefabRegistry;
+
 public:
     virtual ~SceneBuilder() = default;
     virtual std::unique_ptr<Scene> buildScene(std::string_view filePath) = 0;

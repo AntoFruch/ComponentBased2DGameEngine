@@ -5,11 +5,11 @@
 #ifndef COMPONENT_BASED_ARCH_UIDOCUMENT_H
 #define COMPONENT_BASED_ARCH_UIDOCUMENT_H
 
-
 #include "Engine.h"
 #include "Managers/Scene/ComponentFactory.h"
 
-class UIDocument : public Component {
+
+class UIDocument : public ComponentBase<UIDocument> {
     tgui::Gui* gui;
 
 

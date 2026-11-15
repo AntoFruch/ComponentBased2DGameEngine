@@ -45,6 +45,7 @@ add_library(lib_engine
         Managers/Scene/XMLSceneBuilder.h
         GameContext.cpp
         GameContext.h
+        Components/ComponentBase.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

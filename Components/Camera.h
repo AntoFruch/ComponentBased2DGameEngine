@@ -4,12 +4,12 @@
 
 #ifndef COMPONENT_BASED_ARCH_CAMERA_H
 #define COMPONENT_BASED_ARCH_CAMERA_H
-#include "Component.h"
+#include "ComponentBase.h"
 #include "Managers/Scene/ComponentFactory.h"
 #include "SFML/Graphics.hpp"
 
 
-class Camera : public Component {
+class Camera : public ComponentBase<Camera> {
     sf::View m_view;
 
 public:

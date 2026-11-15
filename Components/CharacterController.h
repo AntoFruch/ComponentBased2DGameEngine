@@ -4,14 +4,15 @@
 
 #ifndef COMPONENT_BASED_ARCH_CHARACTERCONTROLLER_H
 #define COMPONENT_BASED_ARCH_CHARACTERCONTROLLER_H
-#include "Component.h"
+#include "ComponentBase.h"
 #include "Managers/Scene/ComponentFactory.h"
 #include <SFML/Graphics.hpp>
 
 #include "Collider.h"
 
 
-class CharacterController : public Component{
+
+class CharacterController : public ComponentBase<CharacterController>{
     Collider* collider;
 public:
     CharacterController() = default;

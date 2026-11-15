@@ -45,6 +45,13 @@ std::unique_ptr<Scene> XMLSceneBuilder::buildScene(std::string_view filePath)
 
 std::vector<std::unique_ptr<GameObject>> XMLSceneBuilder::buildPrefab(std::string_view filePath)
 {
+    if (prefabRegistry.contains(filePath.data()))
+    {
+        std::cout << "Prefab already loaded: " << filePath << "\n cloning it from registry..."<<std::endl;
+        return prefabRegistry.at(filePath.data()).front()->clone();
+    }
+
+    std::cout << "Prefab not loaded before: " << filePath << "\n parsing file..."<<std::endl;
     std::filesystem::path path = filePath;
     pugi::xml_document doc;
     if (auto result = doc.load_file(path.c_str()); !result)
@@ -52,7 +59,9 @@ std::vector<std::unique_ptr<GameObject>> XMLSceneBuilder::buildPrefab(std::strin
         throw IllegalOperationException(std::format("Could not prefab scene because {}", result.description()));
     }
     auto obj = doc.child("GameObject");
-    auto objects = buildGameObject(obj);
+    prefabRegistry.emplace(filePath, buildGameObject(obj));
+    auto objects = prefabRegistry.at(filePath.data()).front()->clone();
+
     if (obj.attribute("label"))
     {
         objects[0]->setLabel(obj.attribute("label").as_string());

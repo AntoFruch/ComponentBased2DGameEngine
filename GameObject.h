@@ -44,6 +44,9 @@ public:
 
     [[nodiscard]] bool isWaitingDestruction() const;
     void destroySelf();
+
+    // PROTOTYPE
+    [[nodiscard]] std::vector<std::unique_ptr<GameObject>> clone() const;
 };
 
 template <typename T>
