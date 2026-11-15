@@ -12,7 +12,7 @@
 
 class Game {
 public:
-    explicit Game(const std::string& scenePath);
+    explicit  Game(const std::string& scenePath);
     ~Game();
     Game(const Game &) = delete;
     Game &operator=(const Game &) = delete;

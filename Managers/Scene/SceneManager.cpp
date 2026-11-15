@@ -14,7 +14,7 @@ SceneManager::SceneManager(std::unique_ptr<SceneBuilder> builder)
 void SceneManager::Update(const sf::Time& elapsedTime)
 {
     if (scene) scene->Update(elapsedTime);
-    if (!requestedScene.empty()) applyRequest();
+    if (!requestedScene.empty()) applyLoadingRequest();
     if (!requestedGOs.empty()) scene->instantiate(requestedGOs);
 }
 
@@ -24,7 +24,7 @@ void SceneManager::requestLoading(std::string_view path)
     requestedScene = path;
 }
 
-void SceneManager::applyRequest()
+void SceneManager::applyLoadingRequest()
 {
     scene = std::move(builder->buildScene(requestedScene));
     std::string dump{scene->dump()};

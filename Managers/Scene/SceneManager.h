@@ -35,7 +35,7 @@ public:
     GameObject* instantiate(std::string_view prefab);
 
 private:
-    void applyRequest();
+    void applyLoadingRequest();
 };
 
 

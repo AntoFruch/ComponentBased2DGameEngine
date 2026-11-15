@@ -20,12 +20,10 @@ class Transform {
 public:
     GameObject* gameObject;
 
-    explicit Transform() = default;
     explicit Transform(
         const sf::Vector2f& position,
         const sf::Angle& rotation,
         const sf::Vector2f& scale,
-        Transform* parent,
         GameObject* gameObject);
 
     static sf::Vector2f rotateVector(sf::Vector2f v, sf::Angle angle);
