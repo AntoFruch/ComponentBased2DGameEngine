@@ -11,6 +11,7 @@
 #include "GameContext.h"
 #include "pugixml.hpp"
 #include "Managers/Render/RenderManager.h"
+#include "Managers/Render/TextureManager.h"
 
 Renderer::Renderer(
     const std::string& texture_path,
@@ -18,13 +19,13 @@ Renderer::Renderer(
     const sf::Vector2u& spriteSize,
     int layer,
     float sortOffsetY)
-    : layer(layer), sortOffsetY(sortOffsetY)
+    : layer(layer), sortOffsetY(sortOffsetY), spriteSize(spriteSize), texture(GameContext::instance().texture_manager()->getTexture(texture_path))
 {
-    loadTexture(texture_path);
     const auto size = static_cast<sf::Vector2f>(spriteSize);
     this->mShape.setSize(size);
     this->mShape.setOrigin(anchor + size / 2.f);
-    this->spriteSize = spriteSize;
+
+    this->mShape.setTexture(&texture);
 }
 
 Renderer::~Renderer()
@@ -44,14 +45,6 @@ void Renderer::Start()
     cutRect.size = static_cast<sf::Vector2i>(spriteSize);
     setCutRectPos(0, 0);
     mShape.setTextureRect(cutRect);
-}
-
-void Renderer::loadTexture(const std::string& path)
-{
-    if (!texture.loadFromFile(path)) {
-        std::cerr << "Texture at " << path << "not found" <<std::endl;
-    }
-    mShape.setTexture(&texture);
 }
 
 void Renderer::Update(const sf::Time& elapsedTime)

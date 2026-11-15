@@ -46,6 +46,8 @@ add_library(lib_engine
         GameContext.cpp
         GameContext.h
         Components/ComponentBase.h
+        Managers/Render/TextureManager.cpp
+        Managers/Render/TextureManager.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

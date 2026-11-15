@@ -4,6 +4,7 @@
 
 #include "GameContext.h"
 
+#include "Managers/Render/TextureManager.h"
 #include "Managers/Scene/XMLSceneBuilder.h"
 
 GameContext& GameContext::instance()
@@ -30,6 +31,7 @@ void GameContext::init(sf::RenderWindow* win, tgui::Gui* gui)
     instance().inputManager = std::make_unique<InputManager>(
         "resources/config/input-config.xml"
         );
+    instance().textureManager = std::make_unique<TextureManager>();
 }
 
 void GameContext::cleanUp()
@@ -37,6 +39,7 @@ void GameContext::cleanUp()
     instance().sceneManager.reset();
     instance().renderManager.reset();
     instance().inputManager.reset();
+    instance().textureManager.reset();
     instance().window = nullptr;
     instance().gui = nullptr;
 }

@@ -11,10 +11,13 @@
 #include "Managers/Scene/SceneManager.h"
 
 
+class TextureManager;
+
 class GameContext {
     std::unique_ptr<InputManager> inputManager;
     std::unique_ptr<RenderManager> renderManager;
     std::unique_ptr<SceneManager> sceneManager;
+    std::unique_ptr<TextureManager> textureManager;
 
     sf::RenderWindow* window{nullptr};
     tgui::Gui* gui{nullptr};
@@ -39,6 +42,11 @@ public:
     [[nodiscard]] RenderManager* render_manager() const
     {
         return renderManager.get();
+    }
+
+    [[nodiscard]] TextureManager* texture_manager() const
+    {
+        return textureManager.get();
     }
 
     [[nodiscard]] sf::RenderWindow* getWindow() const

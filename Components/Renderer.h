@@ -14,14 +14,12 @@
 class Renderer : public ComponentBase<Renderer>
 {
     sf::RectangleShape mShape;
-    sf::Texture texture;
+    sf::Texture& texture;
 
     sf::Vector2u spriteSize;
     sf::IntRect cutRect;
     int layer;
     float sortOffsetY;
-
-    void loadTexture(const std::string& path);
 
 public:
     Renderer(
