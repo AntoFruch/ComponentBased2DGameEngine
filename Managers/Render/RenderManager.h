@@ -6,11 +6,10 @@
 #define COMPONENT_BASED_ARCH_RENDERMANAGER_H
 #include <vector>
 
+#include "Components/Camera.h"
+#include "Components/Renderer.h"
 #include "SFML/Graphics.hpp"
 #include "TGUI/Backend/SFML-Graphics.hpp"
-
-class Camera;
-class Renderer;
 
 
 class RenderManager {

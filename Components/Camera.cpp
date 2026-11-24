@@ -11,7 +11,7 @@
 
 Camera::~Camera()
 {
-    if (auto* rm = GameContext::instance().render_manager())
+    if (auto* rm = GameContext::instance()->render_manager())
     {
         rm->unsetMainCamera(this);
     }
@@ -20,7 +20,7 @@ Camera::~Camera()
 void Camera::Start()
 {
     Component::Start();
-    GameContext::instance().render_manager()->setMainCamera(this);
+    GameContext::instance()->render_manager()->setMainCamera(this);
 }
 
 void Camera::Update(const sf::Time& elapsedTime)
@@ -32,8 +32,8 @@ void Camera::Update(const sf::Time& elapsedTime)
 void Camera::updateSize(sf::Vector2u size)
 {
     float windowRatio = static_cast<float>(size.x) / static_cast<float>(size.y);
-    auto newWidth = windowRatio * GameContext::instance().render_manager()->referenceHeight;
-    m_view.setSize(sf::Vector2f{newWidth, GameContext::instance().render_manager()->referenceHeight});
+    auto newWidth = windowRatio * GameContext::instance()->render_manager()->referenceHeight;
+    m_view.setSize(sf::Vector2f{newWidth, GameContext::instance()->render_manager()->referenceHeight});
 }
 
 void Camera::applyView(sf::RenderWindow& window) const

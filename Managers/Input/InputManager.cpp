@@ -183,7 +183,7 @@ InputAction* InputManager::findAction(const std::string& action_name)
 
 void InputManager::processEvents(std::optional<sf::Event> event)
 {
-    GameContext::instance().getGui()->handleEvent(*event);
+    GameContext::instance()->getGui()->handleEvent(*event);
     // On regarde les touches appuyées et on les met/enleve de pressed_key
     if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
         pressed_keys.insert(keyPressed->code);

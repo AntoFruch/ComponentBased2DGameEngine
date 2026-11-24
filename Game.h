@@ -4,6 +4,7 @@
 
 #ifndef COMPONENT_BASED_ARCH_GAME_H
 #define COMPONENT_BASED_ARCH_GAME_H
+#include "GameContext.h"
 #include "GameObject.h"
 #include "Components/Renderer.h"
 #include "Managers/Scene/Scene.h"
@@ -13,7 +14,7 @@
 class Game {
 public:
     explicit  Game(const std::string& scenePath);
-    ~Game();
+    ~Game() = default;
     Game(const Game &) = delete;
     Game &operator=(const Game &) = delete;
 
@@ -32,6 +33,7 @@ private:
 
     sf::RenderWindow mWindow{sf::VideoMode({W_WIDTH, W_HEIGHT}), "SFML Application"};
     tgui::Gui gui{mWindow};
+    GameContext mCtx{&mWindow, &gui}; //Raii Pattern
 };
 
 

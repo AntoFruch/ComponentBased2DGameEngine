@@ -9,9 +9,7 @@
 #include "Managers/Input/InputManager.h"
 #include "Managers/Render/RenderManager.h"
 #include "Managers/Scene/SceneManager.h"
-
-
-class TextureManager;
+#include "Managers/Render/TextureManager.h"
 
 class GameContext {
     std::unique_ptr<InputManager> inputManager;
@@ -22,47 +20,26 @@ class GameContext {
     sf::RenderWindow* window{nullptr};
     tgui::Gui* gui{nullptr};
 
-    GameContext() = default;
+
+    friend class Game;
+    static GameContext* self;
+    GameContext(sf::RenderWindow* win, tgui::Gui* gui);
 public:
     GameContext(GameContext&) = delete;
     void operator=(const GameContext&) = delete;
 
-    static GameContext& instance();
+    static GameContext* instance();
 
-    [[nodiscard]] SceneManager* scene_manager() const
-    {
-        return sceneManager.get();
-    }
-
-    [[nodiscard]] InputManager* input_manager() const
-    {
-        return inputManager.get();
-    }
-
-    [[nodiscard]] RenderManager* render_manager() const
-    {
-        return renderManager.get();
-    }
-
-    [[nodiscard]] TextureManager* texture_manager() const
-    {
-        return textureManager.get();
-    }
-
-    [[nodiscard]] sf::RenderWindow* getWindow() const
-    {
-        return window;
-    }
+    [[nodiscard]] SceneManager* scene_manager() const;
+    [[nodiscard]] InputManager* input_manager() const;
+    [[nodiscard]] RenderManager* render_manager() const;
+    [[nodiscard]] TextureManager* texture_manager() const;
+    [[nodiscard]] sf::RenderWindow* getWindow() const;
 
     [[nodiscard]] tgui::Gui* getGui() const
     {
         return gui;
     }
-
-private:
-    friend class Game;
-    static void init(sf::RenderWindow* win, tgui::Gui* gui);
-    static void cleanUp();
 };
 
 

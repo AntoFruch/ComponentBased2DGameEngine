@@ -17,7 +17,7 @@ UIDocument::~UIDocument()
 void UIDocument::Start()
 {
     Component::Start();
-    gui = GameContext::instance().getGui();
+    gui = GameContext::instance()->getGui();
 }
 void UIDocument::Update(const sf::Time& elapsedTime)
 {

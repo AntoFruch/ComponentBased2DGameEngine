@@ -7,39 +7,56 @@
 #include "Managers/Render/TextureManager.h"
 #include "Managers/Scene/XMLSceneBuilder.h"
 
-GameContext& GameContext::instance()
-{
-    static GameContext instance;
-    return instance;
-}
+GameContext* GameContext::self = nullptr;
 
-void GameContext::init(sf::RenderWindow* win, tgui::Gui* gui)
+GameContext::GameContext(sf::RenderWindow* win, tgui::Gui* gui)
 {
-    instance().window = win;
-    instance().gui = gui;
+    self = this;
+    self->window = win;
+    self->gui = gui;
 
     // FIXME: constructor parameters here can all be moved to a config file,
     // and the config file path can be passed as a parameter to init()
-    instance().sceneManager = std::make_unique<SceneManager>(
+    self->sceneManager = std::make_unique<SceneManager>(
         std::make_unique<XMLSceneBuilder>()
         );
 
-    instance().renderManager = std::make_unique<RenderManager>(
+    self->renderManager = std::make_unique<RenderManager>(
         win, gui, 480.f
         );
 
-    instance().inputManager = std::make_unique<InputManager>(
+    self->inputManager = std::make_unique<InputManager>(
         "resources/config/input-config.xml"
         );
-    instance().textureManager = std::make_unique<TextureManager>();
+    self->textureManager = std::make_unique<TextureManager>();
 }
 
-void GameContext::cleanUp()
+GameContext* GameContext::instance()
 {
-    instance().sceneManager.reset();
-    instance().renderManager.reset();
-    instance().inputManager.reset();
-    instance().textureManager.reset();
-    instance().window = nullptr;
-    instance().gui = nullptr;
+    return self;
+}
+
+SceneManager* GameContext::scene_manager() const
+{
+    return sceneManager.get();
+}
+
+InputManager* GameContext::input_manager() const
+{
+    return inputManager.get();
+}
+
+RenderManager* GameContext::render_manager() const
+{
+    return renderManager.get();
+}
+
+TextureManager* GameContext::texture_manager() const
+{
+    return textureManager.get();
+}
+
+sf::RenderWindow* GameContext::getWindow() const
+{
+    return window;
 }

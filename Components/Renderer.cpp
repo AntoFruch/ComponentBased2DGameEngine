@@ -19,7 +19,7 @@ Renderer::Renderer(
     const sf::Vector2u& spriteSize,
     int layer,
     float sortOffsetY)
-    : layer(layer), sortOffsetY(sortOffsetY), spriteSize(spriteSize), texture(GameContext::instance().texture_manager()->getTexture(texture_path))
+    : layer(layer), sortOffsetY(sortOffsetY), spriteSize(spriteSize), texture(GameContext::instance()->texture_manager()->getTexture(texture_path))
 {
     const auto size = static_cast<sf::Vector2f>(spriteSize);
     this->mShape.setSize(size);
@@ -30,14 +30,14 @@ Renderer::Renderer(
 
 Renderer::~Renderer()
 {
-    if (auto* rm = GameContext::instance().render_manager())
+    if (auto* rm = GameContext::instance()->render_manager())
     {
         rm->unregisterRenderer(this);
     }
 }
 void Renderer::OnEnable()
 {
-    GameContext::instance().render_manager()->registerRenderer(this);
+    GameContext::instance()->render_manager()->registerRenderer(this);
 }
 
 void Renderer::Start()
