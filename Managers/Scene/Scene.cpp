@@ -21,11 +21,6 @@ void Scene::Start()
 {
     for (const auto& go : mObjects)
     {
-        go->enable();
-    }
-
-    for (const auto& go : mObjects)
-    {
         go->start();
     }
 }

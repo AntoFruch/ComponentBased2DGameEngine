@@ -31,7 +31,6 @@ public:
     );
     ~Renderer() override;
 
-    void OnEnable() override;
     void Start() override;
     void Update(const sf::Time& elapsedTime) override;
     void render(sf::RenderWindow& window) const;

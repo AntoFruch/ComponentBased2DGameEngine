@@ -9,14 +9,6 @@ GameObject::GameObject(std::string_view label, const sf::Vector2f& position, con
 
 }
 
-void GameObject::enable()
-{
-    for (const auto& c : components )
-    {
-        c->OnEnable();
-    }
-}
-
 void GameObject::start()
 {
     for (const auto& c : components )

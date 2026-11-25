@@ -35,13 +35,10 @@ Renderer::~Renderer()
         rm->unregisterRenderer(this);
     }
 }
-void Renderer::OnEnable()
-{
-    GameContext::instance()->render_manager()->registerRenderer(this);
-}
 
 void Renderer::Start()
 {
+    GameContext::instance()->render_manager()->registerRenderer(this);
     cutRect.size = static_cast<sf::Vector2i>(spriteSize);
     setCutRectPos(0, 0);
     mShape.setTextureRect(cutRect);
