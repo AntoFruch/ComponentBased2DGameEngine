@@ -7,7 +7,7 @@
 #include "exceptions/IllegalOperationException.h"
 #include <memory>
 
-#include "GameObject.h"
+#include "../Scene/GameObject.h"
 
 void CollisionsManager::registerCollider(Collider* collider)
 {

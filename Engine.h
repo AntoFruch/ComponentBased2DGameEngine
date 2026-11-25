@@ -7,8 +7,8 @@
 
 #include "Game.h"
 // What users can use
-#include "GameObject.h"
-#include "Transform.h"
+#include "Scene/GameObject.h"
+#include "Scene/Transform.h"
 #include "Components/Component.h"
 #include "Components/CharacterController.h"
 #include "Components/Renderer.h"

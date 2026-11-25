@@ -4,7 +4,7 @@
 
 #include "Animator.h"
 
-#include "GameObject.h"
+#include "../Scene/GameObject.h"
 
 #include "GameContext.h"
 

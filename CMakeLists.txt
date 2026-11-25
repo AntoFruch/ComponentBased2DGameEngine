@@ -1,9 +1,9 @@
 add_library(lib_engine
-        GameObject.cpp
-        GameObject.h
+        Scene/GameObject.cpp
+        Scene/GameObject.h
         Components/Component.h
-        Transform.cpp
-        Transform.h
+        Scene/Transform.cpp
+        Scene/Transform.h
         Game.cpp
         Game.h
         Components/Renderer.cpp

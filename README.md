@@ -1033,10 +1033,10 @@ Exemple de structure pour `src/engine/CMakeLists.txt`:
 
 ```cmake
 add_library(lib_engine
-        GameObject.cpp
-        GameObject.h
-        Transform.cpp
-        Transform.h
+        Scene/GameObject.cpp
+        Scene/GameObject.h
+        Scene/Transform.cpp
+        Scene/Transform.h
         Game.cpp
         Game.h
         Engine.h
