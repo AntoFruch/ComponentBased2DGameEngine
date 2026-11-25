@@ -52,6 +52,7 @@ add_library(lib_engine
         Parsing/XMLParser.h
         Managers/Scene/PrefabManager.cpp
         Managers/Scene/PrefabManager.h
+        Managers/Input/StringToKeyMap.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

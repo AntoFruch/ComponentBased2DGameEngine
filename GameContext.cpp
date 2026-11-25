@@ -27,7 +27,7 @@ GameContext::GameContext(sf::RenderWindow* win, tgui::Gui* gui)
         );
 
     self->inputManager = std::make_unique<InputManager>(
-        "resources/config/input-config.xml"
+        parser->parseInputAction("resources/config/input-config.xml")
         );
     self->textureManager = std::make_unique<TextureManager>();
 }

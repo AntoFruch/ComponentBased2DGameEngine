@@ -6,83 +6,10 @@
 
 #include "Managers/Scene/ComponentFactory.h"
 #include "Managers/Scene/PrefabManager.h"
+#include "../Managers/Input/StringToKeyMap.h"
 
-std::unique_ptr<Scene> XMLParser::parseScene(const std::string& filePath, PrefabManager& manager)
-{
-    std::filesystem::path path = filePath;
-    pugi::xml_document doc;
-    if (auto result = doc.load_file(path.c_str()); !result)
-    {
-        throw IllegalOperationException(std::format("Could not open scene because {}", result.description()));
-    }
-    pugi::xml_node sceneObj = doc.child("Scene");
-    if (!sceneObj)
-    {
-        throw IllegalOperationException("Root node of scene must be named \"Scene\"");
-    }
-
-    std::vector<std::unique_ptr<GameObject>> gameObjects;
-
-    for (const auto& obj : sceneObj)
-    {
-        std::string name = obj.name();
-        if (name == "GameObject")
-        {
-            for (auto& p : parseGameObject(obj))
-            {
-                gameObjects.push_back(std::move(p));
-            }
-        } else if (name == "Prefab")
-        {
-            auto source = obj.attribute("src").as_string();
-            auto prefab = manager.getOrParse(source);
-
-            for (auto& p : prefab)
-            {
-                gameObjects.push_back(std::move(p));
-            }
-        }
-    }
-
-    return std::make_unique<Scene>(gameObjects);
-}
-
-std::vector<std::unique_ptr<GameObject>> XMLParser::parsePrefab(std::string_view filePath)
-{
-    std::filesystem::path path = filePath;
-    pugi::xml_document doc;
-    if (auto result = doc.load_file(path.c_str()); !result)
-    {
-        throw IllegalOperationException(std::format("Could not prefab scene because {}", result.description()));
-    }
-    auto obj = doc.child("GameObject");
-    auto objects = parseGameObject(obj);
-
-    if (obj.attribute("label"))
-    {
-        objects[0]->setLabel(obj.attribute("label").as_string());
-    }
-    if (obj.attribute("x") || obj.attribute("y"))
-    {
-        objects[0]->transform.move({obj.attribute("x").as_float(), obj.attribute("y").as_float()});
-    }
-    if (obj.attribute("angle"))
-    {
-        objects[0]->transform.rotate(sf::degrees(obj.attribute("angle").as_float()));
-    }
-    if (obj.attribute("sx") || obj.attribute("sy"))
-    {
-        objects[0]->transform.rescale({obj.attribute("sx").as_float(1.f), obj.attribute("sy").as_float(1.f)});
-    }
-    if (obj.attribute("active"))
-    {
-        objects[0]->setActive(obj.attribute("active").as_bool());
-    }
-
-    return objects;
-}
-
-std::vector<std::unique_ptr<GameObject>> XMLParser::parseGameObject(const pugi::xml_node& rootNode)
+// Scene
+std::vector<std::unique_ptr<GameObject>> parseGameObject(const pugi::xml_node& rootNode)
 {
     std::vector<std::unique_ptr<GameObject>> objects;
 
@@ -146,3 +73,132 @@ std::vector<std::unique_ptr<GameObject>> XMLParser::parseGameObject(const pugi::
 
     return objects;
 }
+std::unique_ptr<Scene> XMLParser::parseScene(const std::string& filePath, PrefabManager& manager)
+{
+    std::filesystem::path path = filePath;
+    pugi::xml_document doc;
+    if (auto result = doc.load_file(path.c_str()); !result)
+    {
+        throw IllegalOperationException(std::format("Could not open scene because {}", result.description()));
+    }
+    pugi::xml_node sceneObj = doc.child("Scene");
+    if (!sceneObj)
+    {
+        throw IllegalOperationException("Root node of scene must be named \"Scene\"");
+    }
+
+    std::vector<std::unique_ptr<GameObject>> gameObjects;
+
+    for (const auto& obj : sceneObj)
+    {
+        std::string name = obj.name();
+        if (name == "GameObject")
+        {
+            for (auto& p : parseGameObject(obj))
+            {
+                gameObjects.push_back(std::move(p));
+            }
+        } else if (name == "Prefab")
+        {
+            auto source = obj.attribute("src").as_string();
+            auto prefab = manager.getOrParse(source);
+
+            for (auto& p : prefab)
+            {
+                gameObjects.push_back(std::move(p));
+            }
+        }
+    }
+
+    return std::make_unique<Scene>(gameObjects);
+}
+std::vector<std::unique_ptr<GameObject>> XMLParser::parsePrefab(std::string_view filePath)
+{
+    std::filesystem::path path = filePath;
+    pugi::xml_document doc;
+    if (auto result = doc.load_file(path.c_str()); !result)
+    {
+        throw IllegalOperationException(std::format("Could not prefab scene because {}", result.description()));
+    }
+    auto obj = doc.child("GameObject");
+    auto objects = parseGameObject(obj);
+
+    if (obj.attribute("label"))
+    {
+        objects[0]->setLabel(obj.attribute("label").as_string());
+    }
+    if (obj.attribute("x") || obj.attribute("y"))
+    {
+        objects[0]->transform.move({obj.attribute("x").as_float(), obj.attribute("y").as_float()});
+    }
+    if (obj.attribute("angle"))
+    {
+        objects[0]->transform.rotate(sf::degrees(obj.attribute("angle").as_float()));
+    }
+    if (obj.attribute("sx") || obj.attribute("sy"))
+    {
+        objects[0]->transform.rescale({obj.attribute("sx").as_float(1.f), obj.attribute("sy").as_float(1.f)});
+    }
+    if (obj.attribute("active"))
+    {
+        objects[0]->setActive(obj.attribute("active").as_bool());
+    }
+
+    return objects;
+}
+
+// Input
+std::vector<DirectionalBindings> create_directional_bindings(pugi::xml_node node)
+{
+    std::vector<DirectionalBindings> vector;
+    for (const auto& binding : node.children())
+    {
+        DirectionalBindings b{
+            stringToKey.at(binding.child("up").attribute("bind").as_string()),
+            stringToKey.at(binding.child("down").attribute("bind").as_string()),
+            stringToKey.at(binding.child("left").attribute("bind").as_string()),
+            stringToKey.at(binding.child("right").attribute("bind").as_string())
+        };
+        vector.push_back(b);
+    }
+    return vector;
+}
+std::vector<ButtonBinding> create_button_bindings(pugi::xml_node node)
+{
+    std::vector<ButtonBinding> vector;
+    for (const auto& binding : node.children())
+    {
+        ButtonBinding b{
+            stringToKey.at(binding.attribute("bind").as_string()),
+        };
+        vector.push_back(b);
+    }
+    return vector;
+}
+std::unordered_map<std::string, std::unique_ptr<InputAction>> XMLParser::parseInputAction(std::string_view filePath)
+{
+    pugi::xml_document doc;
+    if (auto result = doc.load_file(filePath.data()); !result)
+    {
+        throw IllegalOperationException(std::format("could not open file {} because : {}\n", filePath, result.description()));
+    }
+    std::unordered_map<std::string, std::unique_ptr<InputAction>> actions{};
+    for (const auto& node : doc.child("InputActions").children())
+    {
+        if (std::string name = node.name(); name != "Action") continue;
+
+        std::string label{node.attribute("label").as_string()};
+        std::string type{node.attribute("type").as_string()};
+        if (type == "Vector2D") {
+            actions.try_emplace(label, std::make_unique<InputAction>(label, create_directional_bindings(node)));
+            continue;
+        }
+        if (type == "Button") {
+            actions.try_emplace(label, std::make_unique<InputAction>(label, create_button_bindings(node)));
+            continue;
+        }
+        throw IllegalOperationException("Other input types than Vector2D or Button are not supported");
+    }
+    return actions;
+}
+

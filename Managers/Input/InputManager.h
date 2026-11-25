@@ -9,21 +9,21 @@
 #include <unordered_map>
 
 #include "InputAction.h"
+#include "Parsing/Parser.h"
 
 class InputManager {
     const std::filesystem::path input_config_file_path;
 
-    std::unordered_map<std::string, std::unique_ptr<InputAction>> actions{};
+    using ActionMap = std::unordered_map<std::string, std::unique_ptr<InputAction>>;
+    ActionMap actions{};
 
     /**
      * Currently pressed keys
      */
     std::set<sf::Keyboard::Key> pressed_keys{};
 
-    void loadActions();
 public:
-
-    explicit InputManager(std::string_view configFilePath);
+    explicit InputManager(ActionMap actions);
     InputAction* findAction(const std::string& action_name);
 
     void beginFrame();

@@ -47,3 +47,18 @@ std::vector<std::unique_ptr<GameObject>> ParserDispatcher::parsePrefab(std::stri
     */
     return std::vector<std::unique_ptr<GameObject>>();
 }
+
+std::unordered_map<std::string, std::unique_ptr<InputAction>> ParserDispatcher::parseInputAction(
+    std::string_view filePath)
+{
+    auto extension = resolveFileType(filePath);
+    if (extension == "xml")
+        return xml.parseInputAction(filePath);
+    /*
+    if (extension == "json")
+        return json.parseScene(filePath, manager);
+    ...
+    ...
+    */
+    return std::unordered_map<std::string, std::unique_ptr<InputAction>>{};
+}

@@ -9,6 +9,7 @@
 #include <string_view>
 #include <vector>
 #include "Managers/Scene/Scene.h"
+#include "Managers//Input/InputAction.h"
 
 class PrefabManager;
 
@@ -17,6 +18,7 @@ public:
     virtual ~Parser() = default;
     virtual std::unique_ptr<Scene> parseScene(const std::string& filePath, PrefabManager& manager)=0;
     virtual std::vector<std::unique_ptr<GameObject>> parsePrefab(std::string_view filePath)=0;
+    virtual std::unordered_map<std::string, std::unique_ptr<InputAction>> parseInputAction(std::string_view filePath)=0;
 };
 
 

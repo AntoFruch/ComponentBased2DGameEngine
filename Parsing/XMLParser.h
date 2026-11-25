@@ -11,10 +11,7 @@ class XMLParser : public Parser{
 public:
     std::unique_ptr<Scene> parseScene(const std::string& filePath, PrefabManager& manager) override;
     std::vector<std::unique_ptr<GameObject>> parsePrefab(std::string_view filePath) override;
-
-private:
-    std::vector<std::unique_ptr<GameObject>> parseGameObject(const pugi::xml_node&);
-
+    std::unordered_map<std::string, std::unique_ptr<InputAction>> parseInputAction(std::string_view filePath) override;
 };
 
 
