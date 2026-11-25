@@ -5,7 +5,7 @@
 #include "GameContext.h"
 
 #include "Managers/Render/TextureManager.h"
-#include "Managers/Scene/XMLSceneBuilder.h"
+#include "Parsing/ParserDispatcher.h"
 
 GameContext* GameContext::self = nullptr;
 
@@ -15,11 +15,12 @@ GameContext::GameContext(sf::RenderWindow* win, tgui::Gui* gui)
     self->window = win;
     self->gui = gui;
 
+    self->parser = std::make_unique<ParserDispatcher>();
+
     // FIXME: constructor parameters here can all be moved to a config file,
-    // and the config file path can be passed as a parameter to init()
+    // and the config file path can be passed as a parameter
     self->sceneManager = std::make_unique<SceneManager>(
-        std::make_unique<XMLSceneBuilder>()
-        );
+        parser.get());
 
     self->renderManager = std::make_unique<RenderManager>(
         win, gui, 480.f

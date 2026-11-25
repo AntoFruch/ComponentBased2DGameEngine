@@ -1,12 +1,13 @@
 //
-// Created by Antonin Fruchet on 12/11/2026.
+// Created by Antonin Fruchet on 25/11/2026.
 //
 
-#include "XMLSceneBuilder.h"
+#include "XMLParser.h"
 
-#include "Game.h"
+#include "Managers/Scene/ComponentFactory.h"
+#include "Managers/Scene/PrefabManager.h"
 
-std::unique_ptr<Scene> XMLSceneBuilder::buildScene(std::string_view filePath)
+std::unique_ptr<Scene> XMLParser::parseScene(const std::string& filePath, PrefabManager& manager)
 {
     std::filesystem::path path = filePath;
     pugi::xml_document doc;
@@ -27,13 +28,16 @@ std::unique_ptr<Scene> XMLSceneBuilder::buildScene(std::string_view filePath)
         std::string name = obj.name();
         if (name == "GameObject")
         {
-            for (auto& p : buildGameObject(obj))
+            for (auto& p : parseGameObject(obj))
             {
                 gameObjects.push_back(std::move(p));
             }
         } else if (name == "Prefab")
         {
-            for (auto& p : buildPrefab(obj.attribute("src").as_string()))
+            auto source = obj.attribute("src").as_string();
+            auto prefab = manager.getOrParse(source);
+
+            for (auto& p : prefab)
             {
                 gameObjects.push_back(std::move(p));
             }
@@ -43,15 +47,8 @@ std::unique_ptr<Scene> XMLSceneBuilder::buildScene(std::string_view filePath)
     return std::make_unique<Scene>(gameObjects);
 }
 
-std::vector<std::unique_ptr<GameObject>> XMLSceneBuilder::buildPrefab(std::string_view filePath)
+std::vector<std::unique_ptr<GameObject>> XMLParser::parsePrefab(std::string_view filePath)
 {
-    if (prefabRegistry.contains(filePath.data()))
-    {
-        std::cout << "Prefab already loaded: " << filePath << "\n cloning it from registry..."<<std::endl;
-        return prefabRegistry.at(filePath.data()).front()->clone();
-    }
-
-    std::cout << "Prefab not loaded before: " << filePath << "\n parsing file..."<<std::endl;
     std::filesystem::path path = filePath;
     pugi::xml_document doc;
     if (auto result = doc.load_file(path.c_str()); !result)
@@ -59,8 +56,7 @@ std::vector<std::unique_ptr<GameObject>> XMLSceneBuilder::buildPrefab(std::strin
         throw IllegalOperationException(std::format("Could not prefab scene because {}", result.description()));
     }
     auto obj = doc.child("GameObject");
-    prefabRegistry.emplace(filePath, buildGameObject(obj));
-    auto objects = prefabRegistry.at(filePath.data()).front()->clone();
+    auto objects = parseGameObject(obj);
 
     if (obj.attribute("label"))
     {
@@ -86,7 +82,7 @@ std::vector<std::unique_ptr<GameObject>> XMLSceneBuilder::buildPrefab(std::strin
     return objects;
 }
 
-std::vector<std::unique_ptr<GameObject>> XMLSceneBuilder::buildGameObject(const pugi::xml_node& rootNode)
+std::vector<std::unique_ptr<GameObject>> XMLParser::parseGameObject(const pugi::xml_node& rootNode)
 {
     std::vector<std::unique_ptr<GameObject>> objects;
 

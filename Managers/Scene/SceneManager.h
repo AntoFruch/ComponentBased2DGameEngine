@@ -5,15 +5,17 @@
 #ifndef COMPONENT_BASED_ARCH_SCENEMANAGER_H
 #define COMPONENT_BASED_ARCH_SCENEMANAGER_H
 
-#include "pugixml.hpp"
+#include "PrefabManager.h"
 #include "Scene.h"
-#include "SceneBuilder.h"
 #include "Components/Renderer.h"
+
+class Parser;
 
 class SceneManager {
 
     std::unique_ptr<Scene> scene;
-    std::unique_ptr<SceneBuilder> builder;
+    Parser* parser;
+    PrefabManager prefabManager;
 
     std::string requestedScene = "";
 
@@ -23,7 +25,7 @@ class SceneManager {
     std::vector<std::unique_ptr<GameObject>> requestedGOs;
 
 public:
-    explicit SceneManager(std::unique_ptr<SceneBuilder>);
+    explicit SceneManager(Parser*);
     void Update(const sf::Time& elapsedTime);
 
     /**

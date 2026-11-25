@@ -10,12 +10,14 @@
 #include "Managers/Render/RenderManager.h"
 #include "Managers/Scene/SceneManager.h"
 #include "Managers/Render/TextureManager.h"
+#include "Parsing/XMLParser.h"
 
 class GameContext {
     std::unique_ptr<InputManager> inputManager;
     std::unique_ptr<RenderManager> renderManager;
     std::unique_ptr<SceneManager> sceneManager;
     std::unique_ptr<TextureManager> textureManager;
+    std::unique_ptr<Parser> parser;
 
     sf::RenderWindow* window{nullptr};
     tgui::Gui* gui{nullptr};

@@ -40,14 +40,18 @@ add_library(lib_engine
         Components/UIDocument.cpp
         Components/UIDocument.h
         Components/Component.cpp
-        Managers/Scene/SceneBuilder.h
-        Managers/Scene/XMLSceneBuilder.cpp
-        Managers/Scene/XMLSceneBuilder.h
         GameContext.cpp
         GameContext.h
         Components/ComponentBase.h
         Managers/Render/TextureManager.cpp
         Managers/Render/TextureManager.h
+        Parsing/Parser.h
+        Parsing/ParserDispatcher.cpp
+        Parsing/ParserDispatcher.h
+        Parsing/XMLParser.cpp
+        Parsing/XMLParser.h
+        Managers/Scene/PrefabManager.cpp
+        Managers/Scene/PrefabManager.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

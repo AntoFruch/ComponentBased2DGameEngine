@@ -5,9 +5,10 @@
 #include "SceneManager.h"
 
 #include <iostream>
+#include "Parsing/Parser.h"
 
-SceneManager::SceneManager(std::unique_ptr<SceneBuilder> builder)
-    : builder(std::move(builder))
+SceneManager::SceneManager(Parser* parser)
+    : parser(parser), prefabManager(parser)
 {
 }
 
@@ -26,7 +27,7 @@ void SceneManager::requestLoading(std::string_view path)
 
 void SceneManager::applyLoadingRequest()
 {
-    scene = std::move(builder->buildScene(requestedScene));
+    scene = std::move(parser->parseScene(requestedScene, prefabManager));
     std::string dump{scene->dump()};
     std::cout << dump << std::endl;
     scene->Start();
@@ -35,15 +36,15 @@ void SceneManager::applyLoadingRequest()
 
 GameObject* SceneManager::instantiate(std::string_view prefab)
 {
-    if (std::filesystem::path path{prefab}; path.empty())
+    if (prefab.empty())
     {
         throw IllegalOperationException("Prefab path must be non-empty");
     }
 
-    for (auto& go : builder->buildPrefab(prefab))
+    for (auto& go : prefabManager.getOrParse(prefab))
     {
         requestedGOs.push_back(std::move(go));
     }
 
-    return requestedGOs.front().get();
+    return requestedGOs.front().get(); // first GO is always the root
 }
