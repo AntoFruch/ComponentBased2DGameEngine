@@ -1073,8 +1073,6 @@ add_library(lib_engine
         Managers/Collisions/CollisionsManager.h
         Managers/Animation/AnimatorGraph.cpp
         Managers/Animation/AnimatorGraph.h
-        Managers/Animation/AnimatorTreeLoader.cpp
-        Managers/Animation/AnimatorTreeLoader.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
