@@ -7,11 +7,11 @@
 #include "Managers/Animation/AnimatorTreeLoader.h"
 #include "GameObject.h"
 
-#include <iostream>
+#include "GameContext.h"
 
-Animator::Animator(const std::string& animationTree_path)
+Animator::Animator(const std::string& graphPath)
 {
-    graph = AnimatorTreeLoader::loadAnimatorTree(animationTree_path);
+    graph = GameContext::instance()->animator_tree_manager()->getOrParse(graphPath);
     m_parameters = graph->parameters;
     m_currentState = resolveState(graph->entry);
     m_timeCounter = sf::Time::Zero;

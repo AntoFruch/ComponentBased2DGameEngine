@@ -30,6 +30,9 @@ GameContext::GameContext(sf::RenderWindow* win, tgui::Gui* gui)
         parser->parseInputAction("resources/config/input-config.xml")
         );
     self->textureManager = std::make_unique<TextureManager>();
+    self->animatorTreeManager = std::make_unique<AnimatorTreeManager>(
+        parser.get()
+        );
 }
 
 GameContext* GameContext::instance()
@@ -56,8 +59,16 @@ TextureManager* GameContext::texture_manager() const
 {
     return textureManager.get();
 }
-
+AnimatorTreeManager* GameContext::animator_tree_manager() const
+{
+    return animatorTreeManager.get();
+}
 sf::RenderWindow* GameContext::getWindow() const
 {
     return window;
+}
+
+tgui::Gui* GameContext::getGui() const
+{
+    return gui;
 }

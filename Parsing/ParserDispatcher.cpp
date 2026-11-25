@@ -62,3 +62,17 @@ std::unordered_map<std::string, std::unique_ptr<InputAction>> ParserDispatcher::
     */
     return std::unordered_map<std::string, std::unique_ptr<InputAction>>{};
 }
+
+std::unique_ptr<AnimatorGraph> ParserDispatcher::parseAnimationGraph(std::string_view filePath)
+{
+    auto extension = resolveFileType(filePath);
+    if (extension == "xml")
+        return xml.parseAnimationGraph(filePath);
+    /*
+    if (extension == "json")
+        return json.parseScene(filePath, manager);
+    ...
+    ...
+    */
+    return nullptr;
+}

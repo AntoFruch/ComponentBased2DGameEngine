@@ -18,8 +18,6 @@ add_library(lib_engine
         Components/Animator.h
         Managers/Animation/AnimatorGraph.cpp
         Managers/Animation/AnimatorGraph.h
-        Managers/Animation/AnimatorTreeLoader.cpp
-        Managers/Animation/AnimatorTreeLoader.h
         exceptions/IllegalOperationException.cpp
         exceptions/IllegalOperationException.h
         Components/Collider.cpp
@@ -53,6 +51,8 @@ add_library(lib_engine
         Managers/Scene/PrefabManager.cpp
         Managers/Scene/PrefabManager.h
         Managers/Input/StringToKeyMap.h
+        Managers/Animation/AnimatorTreeManager.cpp
+        Managers/Animation/AnimatorTreeManager.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
