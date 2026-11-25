@@ -1,7 +1,7 @@
 //
 // Created by Antonin Fruchet on 27/05/2026.
 //
-#include "Managers/Animation/AnimatorGraph.h"
+#include "Animation/AnimatorGraph.h"
 
 #include <algorithm>
 

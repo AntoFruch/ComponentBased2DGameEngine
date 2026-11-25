@@ -3,14 +3,8 @@
 //
 
 #include "CharacterController.h"
-
-#include <iostream>
-
 #include "GameContext.h"
-#include "GameObject.h"
-#include "pugixml.hpp"
 #include "exceptions/IllegalOperationException.h"
-#include "Managers/Collisions/CollisionsManager.h"
 
 void CharacterController::Start()
 {

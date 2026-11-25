@@ -8,51 +8,51 @@ add_library(lib_engine
         Game.h
         Components/Renderer.cpp
         Components/Renderer.h
-        Managers/Scene/SceneManager.cpp
-        Managers/Scene/SceneManager.h
-        Managers/Input/InputManager.cpp
-        Managers/Input/InputManager.h
-        Managers/Input/InputAction.cpp
-        Managers/Input/InputAction.h
+        Scene/SceneManager.cpp
+        Scene/SceneManager.h
+        Input/InputManager.cpp
+        Input/InputManager.h
+        Input/InputAction.cpp
+        Input/InputAction.h
         Components/Animator.cpp
         Components/Animator.h
-        Managers/Animation/AnimatorGraph.cpp
-        Managers/Animation/AnimatorGraph.h
+        Animation/AnimatorGraph.cpp
+        Animation/AnimatorGraph.h
         exceptions/IllegalOperationException.cpp
         exceptions/IllegalOperationException.h
         Components/Collider.cpp
         Components/Collider.h
-        Managers/Collisions/CollisionsManager.cpp
-        Managers/Collisions/CollisionsManager.h
+        Collisions/CollisionsManager.cpp
+        Collisions/CollisionsManager.h
         Components/CharacterController.cpp
         Components/CharacterController.h
         Components/Camera.cpp
         Components/Camera.h
-        Managers/Render/RenderManager.cpp
-        Managers/Render/RenderManager.h
-        Managers/Scene/ComponentFactory.cpp
-        Managers/Scene/ComponentFactory.h
+        Render/RenderManager.cpp
+        Render/RenderManager.h
+        Scene/ComponentFactory.cpp
+        Scene/ComponentFactory.h
         Engine.h
-        Managers/Scene/Scene.cpp
-        Managers/Scene/Scene.h
+        Scene/Scene.cpp
+        Scene/Scene.h
         Components/UIDocument.cpp
         Components/UIDocument.h
         Components/Component.cpp
         GameContext.cpp
         GameContext.h
         Components/ComponentBase.h
-        Managers/Render/ResourceManager.cpp
-        Managers/Render/ResourceManager.h
+        Render/ResourceManager.cpp
+        Render/ResourceManager.h
         Parsing/Parser.h
         Parsing/ParserDispatcher.cpp
         Parsing/ParserDispatcher.h
         Parsing/XMLParser.cpp
         Parsing/XMLParser.h
-        Managers/Scene/PrefabManager.cpp
-        Managers/Scene/PrefabManager.h
-        Managers/Input/StringToKeyMap.h
-        Managers/Animation/AnimatorTreeManager.cpp
-        Managers/Animation/AnimatorTreeManager.h
+        Scene/PrefabManager.cpp
+        Scene/PrefabManager.h
+        Input/StringToKeyMap.h
+        Animation/AnimatorTreeManager.cpp
+        Animation/AnimatorTreeManager.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

@@ -5,9 +5,7 @@
 #ifndef COMPONENT_BASED_ARCH_GAME_H
 #define COMPONENT_BASED_ARCH_GAME_H
 #include "GameContext.h"
-#include "GameObject.h"
-#include "Components/Renderer.h"
-#include "Managers/Scene/Scene.h"
+#include "Scene/Scene.h"
 #include "TGUI/Backend/SFML-Graphics.hpp"
 
 

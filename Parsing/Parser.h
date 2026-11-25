@@ -8,9 +8,9 @@
 #include <string>
 #include <string_view>
 #include <vector>
-#include "Managers/Scene/Scene.h"
-#include "Managers//Input/InputAction.h"
-#include "Managers/Animation/AnimatorGraph.h"
+#include "Scene/Scene.h"
+#include "Input/InputAction.h"
+#include "Animation/AnimatorGraph.h"
 
 class PrefabManager;
 

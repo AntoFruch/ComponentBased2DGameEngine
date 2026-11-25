@@ -6,13 +6,12 @@
 #define COMPONENT_BASED_ARCH_GAMECONTEXT_H
 #include <memory>
 
-#include "Managers/Animation/AnimatorTreeManager.h"
-#include "Managers/Collisions/CollisionsManager.h"
-#include "Managers/Input/InputManager.h"
-#include "Managers/Render/RenderManager.h"
-#include "Managers/Scene/SceneManager.h"
-#include "Managers/Render/ResourceManager.h"
-#include "Parsing/XMLParser.h"
+#include "Animation/AnimatorTreeManager.h"
+#include "Collisions/CollisionsManager.h"
+#include "Input/InputManager.h"
+#include "Render/ResourceManager.h"
+#include "Render/RenderManager.h"
+#include "Scene/SceneManager.h"
 
 class GameContext {
     std::unique_ptr<InputManager> inputManager;

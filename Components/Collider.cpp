@@ -5,12 +5,10 @@
 #include "Collider.h"
 
 #include <algorithm>
-#include <iostream>
 #include <utility>
 
 #include "GameContext.h"
-#include "Managers/Collisions/CollisionsManager.h"
-#include "GameObject.h"
+#include "Collisions/CollisionsManager.h"
 
 Collider::Collider(const sf::Vector2f& pos, const sf::Vector2f& dimensions, bool trigger) : localPos(pos), trigger(trigger)
 {

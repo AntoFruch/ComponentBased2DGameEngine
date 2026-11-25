@@ -8,7 +8,6 @@
 
 #include "SFML/System/Vector2.hpp"
 #include "Components/Collider.h"
-#include <memory>
 
 class CollisionsManager {
     std::vector<Collider*> solidColliders;

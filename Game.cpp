@@ -3,11 +3,7 @@
 #include <string>
 
 #include "GameContext.h"
-#include "Components/Renderer.h"
-#include "Managers/Collisions/CollisionsManager.h"
-#include "Managers/Input/InputManager.h"
-#include "Managers/Render/RenderManager.h"
-#include "Managers/Scene/SceneManager.h"
+#include "Input/InputManager.h"
 #include "TGUI/AllWidgets.hpp"
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f / 60.f);

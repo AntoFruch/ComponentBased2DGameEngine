@@ -4,7 +4,6 @@
 
 #include "GameContext.h"
 
-#include "Managers/Render/ResourceManager.h"
 #include "Parsing/ParserDispatcher.h"
 
 GameContext* GameContext::self = nullptr;

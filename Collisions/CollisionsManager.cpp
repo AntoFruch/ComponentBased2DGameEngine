@@ -2,7 +2,7 @@
 // Created by Antonin Fruchet on 01/06/2026.
 //
 
-#include "Managers/Collisions/CollisionsManager.h"
+#include "Collisions/CollisionsManager.h"
 
 #include "exceptions/IllegalOperationException.h"
 #include <memory>

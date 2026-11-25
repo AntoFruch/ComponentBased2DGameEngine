@@ -4,9 +4,9 @@
 
 #include "XMLParser.h"
 
-#include "Managers/Scene/ComponentFactory.h"
-#include "Managers/Scene/PrefabManager.h"
-#include "../Managers/Input/StringToKeyMap.h"
+#include "Scene/ComponentFactory.h"
+#include "Scene/PrefabManager.h"
+#include "Input/StringToKeyMap.h"
 
 // Scene
 std::vector<std::unique_ptr<GameObject>> parseGameObject(const pugi::xml_node& rootNode)

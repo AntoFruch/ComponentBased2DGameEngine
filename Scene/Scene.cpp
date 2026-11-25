@@ -4,8 +4,6 @@
 
 #include "Scene.h"
 #include "SceneManager.h"
-#include <format>
-#include <iostream>
 
 #include "exceptions/IllegalOperationException.h"
 

@@ -6,7 +6,7 @@
 #define COMPONENT_BASED_ARCH_ENGINE_H
 
 #include "Game.h"
-// Ce que les clients externes doivent utiliser
+// What users can use
 #include "GameObject.h"
 #include "Transform.h"
 #include "Components/Component.h"
@@ -16,10 +16,7 @@
 #include "Components/Collider.h"
 #include "Components/Camera.h"
 #include "Components/UIDocument.h"
-
-#include "Managers/Scene/SceneManager.h"
-#include "Managers/Scene/ComponentFactory.h"
-#include "Managers/Input/InputAction.h"
+#include "GameContext.h"
 
 
 #endif //COMPONENT_BASED_ARCH_ENGINE_H

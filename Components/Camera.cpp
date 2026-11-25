@@ -3,11 +3,7 @@
 //
 
 #include "Camera.h"
-
 #include "GameContext.h"
-#include "GameObject.h"
-
-#include "Managers/Render/RenderManager.h"
 
 Camera::~Camera()
 {

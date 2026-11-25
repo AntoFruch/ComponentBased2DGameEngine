@@ -1055,24 +1055,24 @@ add_library(lib_engine
         Components/UIDocument.cpp
         Components/UIDocument.h
 
-        Managers/Scene/Scene.cpp
-        Managers/Scene/Scene.h
-        Managers/Scene/SceneManager.cpp
-        Managers/Scene/SceneManager.h
-        Managers/Scene/ComponentFactory.cpp
-        Managers/Scene/ComponentFactory.h
+        Scene/Scene.cpp
+        Scene/Scene.h
+        Scene/SceneManager.cpp
+        Scene/SceneManager.h
+        Scene/ComponentFactory.cpp
+        Scene/ComponentFactory.h
 
-        Managers/Input/InputManager.cpp
-        Managers/Input/InputManager.h
-        Managers/Input/InputAction.cpp
-        Managers/Input/InputAction.h
+        Input/InputManager.cpp
+        Input/InputManager.h
+        Input/InputAction.cpp
+        Input/InputAction.h
 
-        Managers/Render/RenderManager.cpp
-        Managers/Render/RenderManager.h
-        Managers/Collisions/CollisionsManager.cpp
-        Managers/Collisions/CollisionsManager.h
-        Managers/Animation/AnimatorGraph.cpp
-        Managers/Animation/AnimatorGraph.h
+        Render/RenderManager.cpp
+        Render/RenderManager.h
+        Collisions/CollisionsManager.cpp
+        Collisions/CollisionsManager.h
+        Animation/AnimatorGraph.cpp
+        Animation/AnimatorGraph.h
 )
 
 target_include_directories(lib_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

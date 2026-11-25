@@ -4,8 +4,8 @@
 
 #ifndef COMPONENT_BASED_ARCH_ANIMATOR_H
 #define COMPONENT_BASED_ARCH_ANIMATOR_H
-#include "Managers/Animation/AnimatorGraph.h"
-#include "Managers/Scene/ComponentFactory.h"
+#include "Animation/AnimatorGraph.h"
+#include "Scene/ComponentFactory.h"
 #include "Renderer.h"
 #include <functional>
 #include "ComponentBase.h"

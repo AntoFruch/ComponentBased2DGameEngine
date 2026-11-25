@@ -5,7 +5,7 @@
 #ifndef COMPONENT_BASED_ARCH_CHARACTERCONTROLLER_H
 #define COMPONENT_BASED_ARCH_CHARACTERCONTROLLER_H
 #include "ComponentBase.h"
-#include "Managers/Scene/ComponentFactory.h"
+#include "Scene/ComponentFactory.h"
 #include <SFML/Graphics.hpp>
 
 #include "Collider.h"

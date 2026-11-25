@@ -6,12 +6,8 @@
 
 #include <iostream>
 
-#include "GameObject.h"
 #include "Collider.h"
 #include "GameContext.h"
-#include "pugixml.hpp"
-#include "Managers/Render/RenderManager.h"
-#include "Managers/Render/ResourceManager.h"
 
 Renderer::Renderer(
     const std::string& texture_path,

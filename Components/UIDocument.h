@@ -6,7 +6,7 @@
 #define COMPONENT_BASED_ARCH_UIDOCUMENT_H
 
 #include "Engine.h"
-#include "Managers/Scene/ComponentFactory.h"
+#include "Scene/ComponentFactory.h"
 
 
 class UIDocument : public ComponentBase<UIDocument> {

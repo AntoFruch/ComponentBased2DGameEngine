@@ -5,7 +5,7 @@
 #include "InputManager.h"
 
 #include "GameContext.h"
-#include "Managers/Scene/SceneManager.h"
+#include "Scene/SceneManager.h"
 
 InputManager::InputManager(ActionMap actions)
     : actions(std::move(actions))

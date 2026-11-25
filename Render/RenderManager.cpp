@@ -8,8 +8,8 @@
 
 #include "Components/Camera.h"
 #include "Components/Renderer.h"
-#include "Managers/Collisions/CollisionsManager.h"
-#include "Managers/Scene/SceneManager.h"
+#include "Collisions/CollisionsManager.h"
+#include "Scene/SceneManager.h"
 
 #include <tuple>
 

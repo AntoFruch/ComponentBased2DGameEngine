@@ -7,7 +7,7 @@
 #include <memory>
 
 #include "ComponentBase.h"
-#include "Managers/Scene/ComponentFactory.h"
+#include "Scene/ComponentFactory.h"
 #include "SFML/Graphics.hpp"
 
 
