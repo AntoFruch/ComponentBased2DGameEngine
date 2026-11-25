@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+#include "GameContext.h"
 #include "GameObject.h"
 #include "pugixml.hpp"
 #include "exceptions/IllegalOperationException.h"
@@ -24,6 +25,6 @@ void CharacterController::Start()
 
 void CharacterController::move(const sf::Vector2f& delta)
 {
-    auto newDelta = CollisionsManager::move(*collider, delta);
+    auto newDelta = GameContext::instance()->collisions_manager()->move(*collider, delta);
     gameObject->transform.move(newDelta);
 }

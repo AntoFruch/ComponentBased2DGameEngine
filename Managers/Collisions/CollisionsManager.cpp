@@ -9,9 +9,6 @@
 
 #include "GameObject.h"
 
-std::vector<Collider*> CollisionsManager::solidColliders{};
-std::vector<Collider*> CollisionsManager::triggersColliders{};
-
 void CollisionsManager::registerCollider(Collider* collider)
 {
     if (!collider->isTrigger())
@@ -35,7 +32,7 @@ void CollisionsManager::unRegisterCollider(const Collider* collider)
 sf::Vector2f CollisionsManager::move(Collider& collider, const sf::Vector2f& delta)
 {
     if (collider.isTrigger()) return delta;
-    const auto collidesWithAnyOther = [&collider]
+    const auto collidesWithAnyOther = [&collider, this]
     {
         for (const auto& other : solidColliders)
         {

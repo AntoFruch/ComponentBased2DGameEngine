@@ -8,6 +8,7 @@
 #include <iostream>
 #include <utility>
 
+#include "GameContext.h"
 #include "Managers/Collisions/CollisionsManager.h"
 #include "GameObject.h"
 
@@ -25,13 +26,13 @@ Collider::Collider(const sf::Vector2f& pos, const sf::Vector2f& dimensions, bool
 
 Collider::~Collider()
 {
-    CollisionsManager::unRegisterCollider(this);
+    GameContext::instance()->collisions_manager()->unRegisterCollider(this);
 }
 
 void Collider::Start()
 {
     Component::Start();
-    CollisionsManager::registerCollider(this);
+    GameContext::instance()->collisions_manager()->registerCollider(this);
     syncWithTransform();
 }
 
@@ -42,7 +43,8 @@ void Collider::Update(const sf::Time& elapsedTime)
 
     if (!isTrigger()) return;
 
-    if (const auto& hitColliders = CollisionsManager::checkTrigger(*this); !hitColliders.empty())
+    if (const auto& hitColliders = GameContext::instance()->collisions_manager()->checkTrigger(*this);
+        !hitColliders.empty())
     {
         if (callback)
         {

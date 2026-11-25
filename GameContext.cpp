@@ -29,7 +29,11 @@ GameContext::GameContext(sf::RenderWindow* win, tgui::Gui* gui)
     self->inputManager = std::make_unique<InputManager>(
         parser->parseInputAction("resources/config/input-config.xml")
         );
+
+    self->collisionsManager = std::make_unique<CollisionsManager>();
+
     self->textureManager = std::make_unique<TextureManager>();
+
     self->animatorTreeManager = std::make_unique<AnimatorTreeManager>(
         parser.get()
         );
@@ -62,6 +66,10 @@ TextureManager* GameContext::texture_manager() const
 AnimatorTreeManager* GameContext::animator_tree_manager() const
 {
     return animatorTreeManager.get();
+}
+CollisionsManager* GameContext::collisions_manager() const
+{
+    return collisionsManager.get();
 }
 sf::RenderWindow* GameContext::getWindow() const
 {
