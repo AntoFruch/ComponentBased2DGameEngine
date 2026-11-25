@@ -11,7 +11,7 @@
 #include "GameContext.h"
 #include "pugixml.hpp"
 #include "Managers/Render/RenderManager.h"
-#include "Managers/Render/TextureManager.h"
+#include "Managers/Render/ResourceManager.h"
 
 Renderer::Renderer(
     const std::string& texture_path,
@@ -19,7 +19,7 @@ Renderer::Renderer(
     const sf::Vector2u& spriteSize,
     int layer,
     float sortOffsetY)
-    : layer(layer), sortOffsetY(sortOffsetY), spriteSize(spriteSize), texture(GameContext::instance()->texture_manager()->getTexture(texture_path))
+    : layer(layer), sortOffsetY(sortOffsetY), spriteSize(spriteSize), texture(GameContext::instance()->resource_manager()->getTexture(texture_path))
 {
     const auto size = static_cast<sf::Vector2f>(spriteSize);
     this->mShape.setSize(size);

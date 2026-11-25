@@ -4,7 +4,7 @@
 
 #include "GameContext.h"
 
-#include "Managers/Render/TextureManager.h"
+#include "Managers/Render/ResourceManager.h"
 #include "Parsing/ParserDispatcher.h"
 
 GameContext* GameContext::self = nullptr;
@@ -32,7 +32,7 @@ GameContext::GameContext(sf::RenderWindow* win, tgui::Gui* gui)
 
     self->collisionsManager = std::make_unique<CollisionsManager>();
 
-    self->textureManager = std::make_unique<TextureManager>();
+    self->resourceManager = std::make_unique<ResourceManager>();
 
     self->animatorTreeManager = std::make_unique<AnimatorTreeManager>(
         parser.get()
@@ -59,9 +59,9 @@ RenderManager* GameContext::render_manager() const
     return renderManager.get();
 }
 
-TextureManager* GameContext::texture_manager() const
+ResourceManager* GameContext::resource_manager() const
 {
-    return textureManager.get();
+    return resourceManager.get();
 }
 AnimatorTreeManager* GameContext::animator_tree_manager() const
 {

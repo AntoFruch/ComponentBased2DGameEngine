@@ -41,8 +41,8 @@ add_library(lib_engine
         GameContext.cpp
         GameContext.h
         Components/ComponentBase.h
-        Managers/Render/TextureManager.cpp
-        Managers/Render/TextureManager.h
+        Managers/Render/ResourceManager.cpp
+        Managers/Render/ResourceManager.h
         Parsing/Parser.h
         Parsing/ParserDispatcher.cpp
         Parsing/ParserDispatcher.h

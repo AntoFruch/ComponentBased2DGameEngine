@@ -7,17 +7,21 @@
 #include <map>
 
 #include "SFML/Graphics/Texture.hpp"
+#include "TGUI/Font.hpp"
 
 
-class TextureManager {
-    std::map<std::string, sf::Texture> textureRegistry;
+class ResourceManager {
+    std::map<std::string, sf::Texture> textures;
+    std::map<std::string, tgui::Font> fonts;
 public:
-    TextureManager() = default;
+    ResourceManager() = default;
 
     [[nodiscard]] sf::Texture& getTexture(const std::string& path);
+    [[nodiscard]] tgui::Font getFont(const std::string& path);
 
 private:
     void loadTexture(const std::string& path);
+    void loadFont(const std::string& path);
 };
 
 

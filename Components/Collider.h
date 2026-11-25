@@ -44,7 +44,7 @@ public:
 
     [[nodiscard]] bool isTrigger() const;
 
-    void setTriggerCallback(std::function<void(const std::vector<Collider*>&, Collider*)> callback);
+    void setTriggerCallback(TriggerCallback callback);
 
 private:
     friend class CollisionsManager;
